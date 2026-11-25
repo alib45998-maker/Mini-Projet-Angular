@@ -1,0 +1,81 @@
+<main class="page">
+  <h1>Mon panier</h1>
+
+  @for (ligne of boutique.panier(); track ligne.materiel.id) {
+    <mat-card>
+      <mat-card-content class="cart-line">
+        <div>
+          <b>{{ ligne.materiel.nom }}</b>
+          <p>{{ ligne.materiel.prix | prix }}</p>
+        </div>
+
+        <mat-form-field>
+          <mat-label>Quantité</mat-label>
+          <input
+            matInput
+            type="number"
+            min="1"
+            [max]="ligne.materiel.stock"
+            [ngModel]="ligne.quantite"
+            (ngModelChange)="boutique.changerQuantite(ligne.materiel.id, $event)">
+        </mat-form-field>
+
+        <b>{{ ligne.materiel.prix * ligne.quantite | prix }}</b>
+
+        <button
+          mat-button
+          color="warn"
+          (click)="boutique.supprimerPanier(ligne.materiel.id)">
+          Supprimer
+        </button>
+      </mat-card-content>
+    </mat-card>
+  } @empty {
+    <p>Votre panier est vide.</p>
+  }
+
+  <h2>Total : {{ boutique.total() | prix }}</h2>
+
+  @if (boutique.panier().length > 0) {
+    <mat-card>
+      <mat-card-content>
+        <h2>Informations du client</h2>
+
+        <div class="form-grid">
+          <mat-form-field>
+            <mat-label>Nom</mat-label>
+            <input matInput [(ngModel)]="nom">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Prénom</mat-label>
+            <input matInput [(ngModel)]="prenom">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput type="email" [(ngModel)]="email">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Téléphone</mat-label>
+            <input matInput [(ngModel)]="telephone">
+          </mat-form-field>
+
+          <mat-form-field class="full">
+            <mat-label>Adresse</mat-label>
+            <input matInput [(ngModel)]="adresse">
+          </mat-form-field>
+        </div>
+
+        <button mat-raised-button color="primary" (click)="valider()">
+          Valider la commande
+        </button>
+
+        @if (message()) {
+          <p class="status-ok">{{ message() }}</p>
+        }
+      </mat-card-content>
+    </mat-card>
+  }
+</main>

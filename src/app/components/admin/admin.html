@@ -1,0 +1,231 @@
+<main class="page">
+  @if (!boutique.adminConnecte()) {
+    <mat-card class="narrow">
+      <mat-card-content>
+        <h1>Connexion administrateur</h1>
+        <mat-form-field class="full">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" [(ngModel)]="email">
+        </mat-form-field>
+        <mat-form-field class="full">
+          <mat-label>Mot de passe</mat-label>
+          <input matInput type="password" [(ngModel)]="motDePasse">
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="connecter()">Se connecter</button>
+        @if (erreur) {
+          <p class="status-error">{{ erreur }}</p>
+        }
+        <p class="muted">Compte de démonstration : admin@infolab.tn / admin123</p>
+      </mat-card-content>
+    </mat-card>
+  } @else {
+    <div class="heading-row">
+      <h1>Administration InfoLab</h1>
+      <button mat-button color="warn" (click)="deconnecter()">Déconnexion</button>
+    </div>
+
+    <div class="admin-menu">
+      <button mat-button (click)="section='tableau'">Tableau de bord</button>
+      <button mat-button (click)="section='produits'">Produits</button>
+      <button mat-button (click)="nouveau()">Ajouter un produit</button>
+      <button mat-button (click)="section='commandes'">Commandes</button>
+      <button mat-button (click)="section='password'">Mot de passe</button>
+    </div>
+
+    @if (section === 'tableau') {
+      <h2>Tableau de bord</h2>
+      <div class="grid">
+        <mat-card>
+          <mat-card-content>
+            <p>Nombre de matériels</p>
+            <h2>{{ materiels.materiels().length }}</h2>
+          </mat-card-content>
+        </mat-card>
+        <mat-card>
+          <mat-card-content>
+            <p>Commandes</p>
+            <h2>{{ boutique.commandes().length }}</h2>
+          </mat-card-content>
+        </mat-card>
+        <mat-card>
+          <mat-card-content>
+            <p>Articles dans le panier</p>
+            <h2>{{ boutique.nombreArticles() }}</h2>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <mat-card>
+        <mat-card-content>
+          <h2>Alertes de stock</h2>
+          @for (m of materiels.materiels(); track m.id) {
+            @if (m.stock < 5) {
+              <p class="status-error">{{ m.nom }} : stock faible ({{ m.stock }})</p>
+            }
+          }
+        </mat-card-content>
+      </mat-card>
+    }
+
+    @if (section === 'produits') {
+      <div class="heading-row">
+        <h2>Gestion des matériels</h2>
+        <button mat-raised-button color="primary" (click)="nouveau()">Ajouter</button>
+      </div>
+      <mat-card>
+        <mat-card-content>
+          <table>
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Marque</th>
+                <th>Prix</th>
+                <th>Stock</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (m of materiels.materiels(); track m.id) {
+                <tr>
+                  <td>{{ m.nom }}</td>
+                  <td>{{ m.marque }}</td>
+                  <td>{{ m.prix | prix }}</td>
+                  <td>{{ m.stock }}</td>
+                  <td>
+                    <button mat-button color="primary" (click)="modifier(m)">Modifier</button>
+                    <button mat-button color="warn" (click)="supprimer(m.id)">Supprimer</button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    }
+
+    @if (section === 'formulaire') {
+      <mat-card>
+        <mat-card-content>
+          <h2>{{ id ? 'Modifier' : 'Ajouter' }} un matériel</h2>
+          <form [formRoot]="productForm" (submit)="enregistrer()">
+            <div class="form-grid">
+              <div>
+                <label>Nom</label>
+                <input type="text" [formField]="productForm.nom">
+                @if (productForm.nom().invalid() && productForm.nom().touched()) {
+                  @for (err of productForm.nom().errors(); track $index) {
+                    <p class="status-error">{{ err.message }}</p>
+                  }
+                }
+              </div>
+              <div>
+                <label>Marque</label>
+                <input type="text" [formField]="productForm.marque">
+                @if (productForm.marque().invalid() && productForm.marque().touched()) {
+                  @for (err of productForm.marque().errors(); track $index) {
+                    <p class="status-error">{{ err.message }}</p>
+                  }
+                }
+              </div>
+              <div>
+                <label>Catégorie</label>
+                <input type="text" [formField]="productForm.categorie">
+                @if (productForm.categorie().invalid() && productForm.categorie().touched()) {
+                  @for (err of productForm.categorie().errors(); track $index) {
+                    <p class="status-error">{{ err.message }}</p>
+                  }
+                }
+              </div>
+              <div>
+                <label>Prix (DT)</label>
+                <input type="number" [formField]="productForm.prix">
+                @if (productForm.prix().invalid() && productForm.prix().touched()) {
+                  @for (err of productForm.prix().errors(); track $index) {
+                    <p class="status-error">{{ err.message }}</p>
+                  }
+                }
+              </div>
+              <div>
+                <label>Stock</label>
+                <input type="number" [formField]="productForm.stock">
+                @if (productForm.stock().invalid() && productForm.stock().touched()) {
+                  @for (err of productForm.stock().errors(); track $index) {
+                    <p class="status-error">{{ err.message }}</p>
+                  }
+                }
+              </div>
+              <div>
+                <label>Garantie (mois)</label>
+                <input type="number" [formField]="productForm.garantie">
+              </div>
+              <div>
+                <label>Note sur 5</label>
+                <input type="number" [formField]="productForm.note">
+              </div>
+              <div>
+                <label>Image du matériel</label>
+                <select [formField]="productForm.image">
+                  <option value="/ordinateur.png">Ordinateur</option>
+                  <option value="/souris.png">Souris</option>
+                  <option value="/clavier.png">Clavier</option>
+                  <option value="/casque.png">Casque</option>
+                </select>
+              </div>
+              <div class="full">
+                <label>Description</label>
+                <textarea rows="3" [formField]="productForm.description"></textarea>
+              </div>
+            </div>
+            <p>
+              <button mat-raised-button color="primary" type="submit" [disabled]="productForm().invalid()">Enregistrer</button>
+              <button mat-button type="button" (click)="section='produits'">Annuler</button>
+            </p>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    }
+
+    @if (section === 'commandes') {
+      <h2>Gestion des commandes</h2>
+      @for (c of boutique.commandes(); track c.id) {
+        <mat-card>
+          <mat-card-content>
+            <p><b>Commande {{ c.id }}</b> - {{ c.datecmd | date:'dd/MM/yyyy ' }}</p>
+            <p>Client : {{ c.client.prenom }} {{ c.client.nom }} - {{ c.client.email }}</p>
+            @for (l of c.lignes; track l.materiel.id) {
+              <p>{{ l.materiel.nom }} -- {{ l.quantite }}</p>
+            }
+            <h3>Total : {{ c.total | prix }}</h3>
+            <label>Statut
+            <select #selectStatut [value]="c.statut" (change)="changerStatut(c.id, selectStatut.value)">
+                  <option value="En attente">En attente</option>
+                  <option value="Validée">Validée</option>
+                  <option value="Expédiée">Expédiée</option>
+            </select>
+            </label>
+
+          </mat-card-content>
+        </mat-card>
+      }
+    }
+
+    @if (section === 'password') {
+      <mat-card class="narrow">
+        <mat-card-content>
+          <h2>Modifier le mot de passe</h2>
+          <mat-form-field class="full">
+            <mat-label>Ancien mot de passe</mat-label>
+            <input matInput type="password" [(ngModel)]="ancien">
+          </mat-form-field>
+          <mat-form-field class="full">
+            <mat-label>Nouveau mot de passe</mat-label>
+            <input matInput type="password" [(ngModel)]="nouveauMotDePasse">
+          </mat-form-field>
+          <button mat-raised-button color="primary" (click)="changerMotDePasse()">Modifier</button>
+          @if (message) {
+            <p>{{ message }}</p>
+          }
+        </mat-card-content>
+      </mat-card>
+    }
+  }
+</main>

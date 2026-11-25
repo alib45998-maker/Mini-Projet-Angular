@@ -12,6 +12,16 @@ ng serve
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
+
+## Lancer le projet complet
+
+Le projet utilise JSON Server pour fournir l'API des matériels sur `http://localhost:3000/materiels`.
+
+1. Installer les dépendances : `npm install`
+2. Dans un premier terminal, lancer l'API : `npm run server` (si nécessaire, `npx` téléchargera JSON Server).
+3. Dans un deuxième terminal, lancer Angular : `npm start`
+4. Ouvrir `http://localhost:4200/`.
+
 ## Code scaffolding
 
 Angular CLI includes powerful code scaffolding tools. To generate a new component, run:

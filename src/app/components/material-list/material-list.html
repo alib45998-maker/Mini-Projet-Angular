@@ -1,0 +1,52 @@
+<main class="page">
+	@if (materiel()) {
+		<mat-card>
+			<mat-card-content class="detail">
+				<img [src]="materiel()?.image" [alt]="materiel()?.nom">
+				<div>
+					<p>{{ materiel()?.categorie }}</p>
+					<h1>{{ materiel()?.nom }}</h1>
+					<h3>{{ materiel()?.marque }}</h3>
+					<p>{{ materiel()?.description }}</p>
+					<h2>{{ (materiel()?.prix ?? 0) | prix }}</h2>
+					<p>Stock : {{ materiel()?.stock }} | Garantie : {{ materiel()?.garantie }} mois</p>
+					<p>Note : {{ materiel()?.note }}/5 | Ajouté le : {{ materiel()?.dateAjout | date:'dd/MM/yyyy' }}</p>
+					<p>{{ materiel()?.disponible ? 'Disponible' : 'Indisponible' }}</p>
+					<button mat-raised-button color="primary" (click)="boutique.ajouterPanier(materiel()!)" [disabled]="!materiel()!.disponible || materiel()!.stock < 1">
+  					Ajouter au panier 
+					</button>
+					<a mat-button routerLink="/produits">Retour</a>
+				</div>
+			</mat-card-content>
+		</mat-card>
+
+		<h2>Commentaires</h2>
+		@for (c of materiel()?.comments; track c.id) {
+			<p><b>{{ c.nom }}</b> - {{ c.note }}/5 : {{ c.message }}</p>
+		} @empty {
+			<p>Aucun commentaire.</p>
+		}
+	} @else {
+		<h1>Nos matériels informatiques</h1>
+		<mat-card>
+			<mat-card-content>
+				<div class="form-grid">
+					<mat-form-field appearance="outline">
+						<mat-label>Nom du matériel : </mat-label>
+						<input matInput [(ngModel)]="nom">
+					</mat-form-field>
+					<mat-form-field appearance="outline">
+						<mat-label>Prix maximum (DT) : </mat-label>
+						<input matInput type="number" [(ngModel)]="prixMax">
+					</mat-form-field>
+				</div>
+			</mat-card-content>
+		</mat-card>
+
+		<div class="grid">
+			@for (m of resultats(); track m.id) {
+				<app-material-card [materiel]="m"></app-material-card>
+			}
+		</div>
+	}
+</main>
