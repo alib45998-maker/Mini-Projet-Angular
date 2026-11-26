@@ -14,6 +14,7 @@ import { PrixPipe } from '../../pipe/prix-pipe';
 })
 export class MaterialCard {
   materiel = input.required<Materiel>();
+  carte = 'product-card carte';
 
   boutique = inject(BoutiqueService);
 

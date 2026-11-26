@@ -1,0 +1,7 @@
+.carte {
+  background: linear-gradient(145deg, #f8fbfa 0%, #789c94 100%);
+  border: 1px solid #d5e4e1;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(25, 59, 59, 0.10);
+  padding: 12px;
+}

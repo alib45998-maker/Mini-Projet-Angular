@@ -1,14 +1,14 @@
-<article class="product-card">
+<article [class]="carte">
 	<img [src]="materiel().image" class="product-img" [alt]="materiel().nom">
 
-	<div>
+	<div style="text-align: center;">
 		<p class="muted">{{ materiel().categorie }}</p>
 		<h3>{{ materiel().nom }}</h3>
-		<p>{{ materiel().marque }}</p>
+		<p style="font-size: large; color: rgb(2, 0, 139);">{{ materiel().marque }}</p>
 		<h3>{{ materiel().prix | prix }}</h3>
 	</div>
 
-	<div>
+	<div style=" justify-content: center;">
 		<a mat-button color="primary" [routerLink]="['/produits', materiel().id]">Détail</a>
 		<button mat-raised-button color="primary" (click)="boutique.ajouterPanier(materiel())" [disabled]="estIndisponible()">
 			Ajouter au panier

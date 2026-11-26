@@ -136,6 +136,8 @@ button:disabled {
   text-align: center;
   color: #fff;
   background: #163f43;
+  font-weight: bold;
+  font-size: large;
 }
 
 .narrow, .login {
@@ -147,6 +149,7 @@ button:disabled {
   display: grid;
   grid-template-columns: minmax(240px, 1fr) 1.2fr;
   gap: 28px;
+  
 }
 
 .detail img {
