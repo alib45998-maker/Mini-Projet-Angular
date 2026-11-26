@@ -21,6 +21,9 @@ import { PrixPipe } from '../../pipe/prix-pipe';
 
 
 export class Admin implements OnInit {
+
+  Admin_exemple = "adm";
+
   boutique = inject(BoutiqueService);
   materiels = inject(MaterielService);
   router = inject(Router);
@@ -150,7 +153,8 @@ export class Admin implements OnInit {
         materiel.dateAjout = ancienMateriel.dateAjout;
         materiel.comments = ancienMateriel.comments;
       }
-      this.materiels.modifier(materiel).subscribe(() => {this.section = 'produits';
+      this.materiels.modifier(materiel).subscribe(() => {
+        this.section = 'produits';
         this.model.set({
           nom: '', marque: '', categorie: '', description: '', prix: 0, stock: 0, image: '/ordinateur.png', garantie: 12, note: 4,
           id: '',

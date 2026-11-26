@@ -37,12 +37,13 @@ export class MaterialList implements OnInit {
   prixMax?: number;
 
   resultats(): Materiel[] {
-    const nom = this.nom.toLowerCase();
-    const prixMax = this.prixMax;
+    let nom = this.nom.toLowerCase();
+    let prixMax = this.prixMax;
 
     return this.service.materiels().filter(m => {
-      const v_nom = m.nom.toLowerCase().includes(nom);
-      const v_prix = prixMax == null || m.prix <= prixMax;
+
+      let v_nom = m.nom.toLowerCase().includes(nom);
+      let v_prix = prixMax == null || m.prix <= prixMax;
 
       return v_nom && v_prix;
     });

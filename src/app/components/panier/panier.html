@@ -11,23 +11,13 @@
 
         <mat-form-field>
           <mat-label>Quantité</mat-label>
-          <input
-            matInput
-            type="number"
-            min="1"
-            [max]="ligne.materiel.stock"
-            [ngModel]="ligne.quantite"
-            (ngModelChange)="boutique.changerQuantite(ligne.materiel.id, $event)">
+          <input matInput type="number" min="1" [max]="ligne.materiel.stock" [(ngModel)]="ligne.quantite"
+          (ngModelChange)="boutique.changerQuantite(ligne.materiel.id, ligne.quantite)">
         </mat-form-field>
 
         <b>{{ ligne.materiel.prix * ligne.quantite | prix }}</b>
 
-        <button
-          mat-button
-          color="warn"
-          (click)="boutique.supprimerPanier(ligne.materiel.id)">
-          Supprimer
-        </button>
+        <button mat-button color="warn" (click)="boutique.supprimerPanier(ligne.materiel.id)">Supprimer</button>
       </mat-card-content>
     </mat-card>
   } @empty {

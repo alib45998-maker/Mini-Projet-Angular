@@ -24,8 +24,8 @@ export class Panier {
 
 
   valider(): void {
-    if (this.nom === '' || this.prenom === '' || this.email === '' ||
-        this.telephone === '' || this.adresse === '' || this.boutique.panier().length === 0) {
+    if (this.nom === '' || this.prenom === '' || this.email === '' ||this.telephone === '' || this.adresse === '' || 
+      this.boutique.panier().length === 0) {
       return;
     }
 

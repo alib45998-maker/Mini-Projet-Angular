@@ -9,4 +9,6 @@ import { RouterLink } from '@angular/router';
   templateUrl: './acceuil.html',
   styleUrl: './acceuil.css'
 })
-export class Acceuil {}
+export class Acceuil {
+  bien = 'bienvenue';
+}

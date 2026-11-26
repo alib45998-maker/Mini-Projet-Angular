@@ -2,7 +2,7 @@
   @if (!boutique.adminConnecte()) {
     <mat-card class="narrow">
       <mat-card-content>
-        <h1>Connexion administrateur</h1>
+        <h1 style="text-align: center;">Connexion administrateur</h1>
         <mat-form-field class="full">
           <mat-label>Email</mat-label>
           <input matInput type="email" [(ngModel)]="email">
@@ -15,7 +15,7 @@
         @if (erreur) {
           <p class="status-error">{{ erreur }}</p>
         }
-        <p class="muted">Compte de démonstration : admin@infolab.tn / admin123</p>
+        <p> <span [class]="Admin_exemple"> Compte de démonstration : admin@infolab.tn / admin123 </span></p>
       </mat-card-content>
     </mat-card>
   } @else {
