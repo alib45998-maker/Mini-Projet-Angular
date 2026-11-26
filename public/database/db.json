@@ -1,0 +1,72 @@
+{
+  "materiels": [
+    {
+      "id": "m001",
+      "nom": "Ordinateur portable",
+      "marque": "MSI",
+      "categorie": "Ordinateur",
+      "description": "Ordinateur portable pour les jeux videos et les études.",
+      "prix": 1899,
+      "stock": 8,
+      "image": "/ordinateur.png",
+      "garantie": 24,
+      "note": 4.5,
+      "disponible": true,
+      "dateAjout": "2026-10-15",
+      "comments": [
+        {
+          "id": 1,
+          "nom": "Ahmed",
+          "message": "Bon ordinateur",
+          "note": 5,
+          "date": "2026-10-20"
+        }
+      ]
+    },
+    {
+      "id": "m002",
+      "nom": "Souris sans fil",
+      "marque": "Logitech",
+      "categorie": "Accessoire",
+      "description": "Souris sans fil avec connexion USB possible.",
+      "prix": 65,
+      "stock": 0,
+      "image": "/souris.png",
+      "garantie": 12,
+      "note": 4.2,
+      "disponible": false,
+      "dateAjout": "2026-10-18",
+      "comments": []
+    },
+    {
+      "id": "m003",
+      "nom": "Clavier",
+      "marque": "Redragon",
+      "categorie": "Accessoire",
+      "description": "Clavier adapté au travail et au jeu.",
+      "prix": 145,
+      "stock": 12,
+      "image": "/clavier.png",
+      "garantie": 12,
+      "note": 4.6,
+      "dateAjout": "2026-10-19",
+      "disponible": true,
+      "comments": []
+    },
+    {
+      "id": "m004",
+      "nom": "Casque",
+      "marque": "Mars gaming",
+      "categorie": "Accessoire",
+      "description": "Casque adapté aux sons.",
+      "prix": 543.1,
+      "stock": 6,
+      "image": "/casque.png",
+      "garantie": 24,
+      "note": 4.3,
+      "disponible": true,
+      "dateAjout": "2026-10-22",
+      "comments": []
+    }
+  ]
+}
