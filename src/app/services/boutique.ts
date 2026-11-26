@@ -7,9 +7,7 @@ import { Materiel } from '../interface/materiel';
 
 @Injectable({ 
   providedIn: 'root' 
-
 })
-
 export class BoutiqueService {
 
   panier = signal<LignePanier[]>([]);

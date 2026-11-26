@@ -5,7 +5,9 @@ import { Materiel } from '../interface/materiel';
 
 const url = 'http://localhost:3000/materiels';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ 
+  providedIn: 'root'
+ })
 export class MaterielService {
   private readonly _http = inject(HttpClient);
  
